@@ -16,8 +16,8 @@ class WeatherViewModel: ObservableObject {
     
     @AppStorage("location") var storageLocation: String = ""
     
-    var appError: AppError? = nil
-    private let weatherService = WeatherService()
+    @Published var appError: AppError? = nil
+    var weatherService = WeatherService()
     private var locationManager = LocationManager()
     private var cancellables = Set<AnyCancellable>()
     
