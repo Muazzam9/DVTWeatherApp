@@ -9,9 +9,22 @@ import UIKit
 import SwiftUI
 
 class WeatherViewController: UIViewController {
+
+    var colorSchemeManager: ColorSchemeManager
+
+    init(colorSchemeManager: ColorSchemeManager) {
+        self.colorSchemeManager = colorSchemeManager
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let contentView = ContentView()
+        let contentView = WeatherView()
+            .environmentObject(colorSchemeManager)
         let hostingController = UIHostingController(rootView: contentView)
         addChild(hostingController)
         view.addSubview(hostingController.view)
@@ -28,4 +41,3 @@ class WeatherViewController: UIViewController {
         hostingController.didMove(toParent: self)
     }
 }
-
