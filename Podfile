@@ -4,7 +4,7 @@
 target 'DVTWeatherApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
+  pod 'Willow'
   # Pods for DVTWeatherApp
 
   target 'DVTWeatherAppTests' do
