@@ -8,7 +8,11 @@ class WeatherViewModel: ObservableObject {
     
     @Published var location = ""
     @Published var isLoading: Bool = false
+    @Published var isRefreshing: Bool = false
     @Published var weather: ResponseData = defaultResponseData
+    
+    // Store the current location
+    @Published var currentLocation: CLLocation?
     
     @AppStorage("location") var storageLocation: String = ""
     
@@ -19,28 +23,41 @@ class WeatherViewModel: ObservableObject {
     
     
     init() {
-        locationManager.$location
-            .compactMap { $0 }
-            .sink { [weak self] location in
-                self?.fetchWeather(location: location)
-            }
-            .store(in: &cancellables)
-    }
+            locationManager.$location
+                .compactMap { $0 }
+                .sink { [weak self] location in
+                    self?.currentLocation = location
+                    self?.fetchWeather(isInitialLoad: true) // Initial load
+                }
+                .store(in: &cancellables)
+        }
     
-    func fetchWeather(location: CLLocation) {
-        isLoading = true
-        weatherService.fetchWeatherData(for: location) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.isLoading = false
-                switch result {
-                case .success(let weatherData):
-                    self?.weather = weatherData
-                case .failure(let error):
-                    self?.appError = AppError(errorString: error.localizedDescription)
+    func fetchWeather(isInitialLoad: Bool = false) {
+            guard let location = currentLocation else { return }
+            
+            if isInitialLoad {
+                isLoading = true
+            } else {
+                isRefreshing = true
+            }
+            
+            weatherService.fetchWeatherData(for: location) { [weak self] result in
+                DispatchQueue.main.async {
+                    if isInitialLoad {
+                        self?.isLoading = false
+                    } else {
+                        self?.isRefreshing = false
+                    }
+                    
+                    switch result {
+                    case .success(let weatherData):
+                        self?.weather = weatherData
+                    case .failure(let error):
+                        self?.appError = AppError(errorString: error.localizedDescription)
+                    }
                 }
             }
         }
-    }
 }
 
 extension WeatherViewModel {
@@ -100,6 +117,12 @@ extension WeatherViewModel {
     
     var temperature: String {
         return "\(Formatters.numberFormatter.string(for: Formatters().convert(weather.list[0].main.temp)) ?? "0")°"
+    }
+    var minTemperature: String {
+        return "\(Formatters.numberFormatter.string(for: Formatters().convert(weather.list[0].main.tempMin)) ?? "0")°"
+    }
+    var maxTemperature: String {
+        return "\(Formatters.numberFormatter.string(for: Formatters().convert(weather.list[0].main.tempMax)) ?? "0")°"
     }
     
     var high: String {

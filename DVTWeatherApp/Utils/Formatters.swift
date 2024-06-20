@@ -7,9 +7,10 @@
 
 import Foundation
 class Formatters: ObservableObject {
+    
     let weeklyDay: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "d/M E"
+        formatter.dateFormat = "EEEE"
         return formatter
     }()
     
@@ -33,6 +34,21 @@ class Formatters: ObservableObject {
         return formatter.string(from: date)
     }
     
+    func formatedTime(time: Date, timeZoneOffset: Double) -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: Int(timeZoneOffset))
+        return formatter.string(from: date)
+    }
+    
+    func formatTime(unixTime: Double, timeZoneOffset: Double) -> String {
+        let date = Date(timeIntervalSince1970: unixTime)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: Int(timeZoneOffset))
+        return formatter.string(from: date)
+    }
     
     func formattedHourlyTime(time: Double, timeZoneOffset: Double) -> String {
         let date = Date(timeIntervalSince1970: time)

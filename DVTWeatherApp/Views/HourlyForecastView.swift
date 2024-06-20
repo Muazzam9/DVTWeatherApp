@@ -28,17 +28,22 @@ struct HourlyForecastView: View {
             HStack(spacing: 5) {
                 Image(systemName: "drop.fill")
                     .renderingMode(.original)
-//                    .foregroundColor(Color("Blue"))
+                    .foregroundColor(Color(hex: "#32AAE1"))
 
                 Text((weatherList.main.humidity.roundDouble()) + "%")
             }
             .font(.caption)
         }
+        .foregroundColor(.white)
         .frame(minWidth: 10, minHeight: 80)
         .padding()
-        .background(colorSchemeManager.currentScheme == .light ? Color.white : Color(.systemBackground).opacity(0.2))
-        .foregroundColor(colorSchemeManager.currentScheme == .dark ? .white : .primary)
-        .background(.ultraThinMaterial)
+        .background(viewModel.backgroundColor.secondary)
+        .background(.ultraThickMaterial)
         .cornerRadius(20)
     }
+}
+
+#Preview {
+    HourlyForecastView(weatherList: defaultResponseData.list[0], weather: defaultResponseData, viewModel: WeatherViewModel())
+        .environmentObject(ColorSchemeManager())
 }

@@ -23,8 +23,8 @@ struct IndicatorsView: View {
                     .font(.system(size: 25))
             }
             .padding()
-            .background(colorSchemeManager.currentScheme == .light ? Color.white : Color(.systemBackground).opacity(0.2))
-            .foregroundColor(colorSchemeManager.currentScheme == .dark ? .white : .primary)
+            .background(viewModel.backgroundColor.secondary)
+            .foregroundColor(.white)
             .background(.ultraThinMaterial)
             .cornerRadius(20)
             
@@ -40,8 +40,8 @@ struct IndicatorsView: View {
                     .font(.system(size: 25))
             }
             .padding()
-            .background(colorSchemeManager.currentScheme == .light ? Color.white : Color(.systemBackground).opacity(0.2))
-            .foregroundColor(colorSchemeManager.currentScheme == .dark ? .white : .primary)
+            .background(viewModel.backgroundColor.secondary)
+            .foregroundColor(.white)
             .background(.ultraThinMaterial)
             .cornerRadius(20)
             
@@ -57,8 +57,8 @@ struct IndicatorsView: View {
                     .font(.system(size: 25))
             }
             .padding()
-            .background(colorSchemeManager.currentScheme == .light ? Color.white : Color(.systemBackground).opacity(0.2))
-            .foregroundColor(colorSchemeManager.currentScheme == .dark ? .white : .primary)
+            .background(viewModel.backgroundColor.secondary)
+            .foregroundColor(.white)
             .background(.ultraThinMaterial)
             .cornerRadius(20)
         }

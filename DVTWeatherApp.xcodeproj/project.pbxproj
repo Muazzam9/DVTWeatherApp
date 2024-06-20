@@ -26,6 +26,8 @@
 		ECC52FA12C24B04A00961D1C /* DefaultResponseData.json in Resources */ = {isa = PBXBuildFile; fileRef = ECC52F9B2C24AD8F00961D1C /* DefaultResponseData.json */; };
 		ECC52FA32C24B3F000961D1C /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC52FA22C24B3F000961D1C /* AppError.swift */; };
 		ECC52FA52C24B46800961D1C /* DailyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC52FA42C24B46800961D1C /* DailyForecast.swift */; };
+		ECC52FA82C24BB2600961D1C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC52FA72C24BB2600961D1C /* Color.swift */; };
+		ECC52FAA2C24BD8F00961D1C /* TemperatureRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC52FA92C24BD8F00961D1C /* TemperatureRangeView.swift */; };
 		ECF0C6132C1DA4EB0004D8B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF0C6122C1DA4EB0004D8B7 /* AppDelegate.swift */; };
 		ECF0C6152C1DA4EB0004D8B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF0C6142C1DA4EB0004D8B7 /* SceneDelegate.swift */; };
 		ECF0C6172C1DA4EB0004D8B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF0C6162C1DA4EB0004D8B7 /* ViewController.swift */; };
@@ -86,6 +88,8 @@
 		ECC52F9E2C24B00C00961D1C /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		ECC52FA22C24B3F000961D1C /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		ECC52FA42C24B46800961D1C /* DailyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecast.swift; sourceTree = "<group>"; };
+		ECC52FA72C24BB2600961D1C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		ECC52FA92C24BD8F00961D1C /* TemperatureRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureRangeView.swift; sourceTree = "<group>"; };
 		ECF0C60F2C1DA4EB0004D8B7 /* DVTWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVTWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF0C6122C1DA4EB0004D8B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECF0C6142C1DA4EB0004D8B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				ECC52F852C24A46A00961D1C /* DoubleExtension.swift */,
+				ECC52FA72C24BB2600961D1C /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 				ECC52F8B2C24A54300961D1C /* HourlyForecastView.swift */,
 				ECC52F8D2C24A57100961D1C /* IndicatorsView.swift */,
 				ECC52F952C24A65C00961D1C /* SunriseView.swift */,
+				ECC52FA92C24BD8F00961D1C /* TemperatureRangeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -574,11 +580,13 @@
 				ECF0C6552C1E53DF0004D8B7 /* MainTabBarController.swift in Sources */,
 				ECF0C6582C1F4FDD0004D8B7 /* LocationManager.swift in Sources */,
 				ECF0C6512C1E52FE0004D8B7 /* WeatherView.swift in Sources */,
+				ECC52FAA2C24BD8F00961D1C /* TemperatureRangeView.swift in Sources */,
 				ECF0C6172C1DA4EB0004D8B7 /* ViewController.swift in Sources */,
 				ECC52FA32C24B3F000961D1C /* AppError.swift in Sources */,
 				ECC52F9D2C24AECF00961D1C /* DefaultResponseData.swift in Sources */,
 				ECF0C64F2C1E52B70004D8B7 /* WeatherViewModel.swift in Sources */,
 				ECF0C6132C1DA4EB0004D8B7 /* AppDelegate.swift in Sources */,
+				ECC52FA82C24BB2600961D1C /* Color.swift in Sources */,
 				ECC52F7E2C24A0E600961D1C /* CurrentWeatherView.swift in Sources */,
 				ECC52F8E2C24A57100961D1C /* IndicatorsView.swift in Sources */,
 				ECF0C6152C1DA4EB0004D8B7 /* SceneDelegate.swift in Sources */,

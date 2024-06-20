@@ -17,27 +17,24 @@ struct SunriseView: View {
                 .bold()
             Image(systemName: "sun.max.fill")
                 .renderingMode(.original)
-            Text(formatTime(unixTime: viewModel.weather.city.sunrise, timeZoneOffset: viewModel.weather.city.timezone))
+            Text(Formatters().formatTime(unixTime: viewModel.weather.city.sunrise, timeZoneOffset: viewModel.weather.city.timezone))
             Spacer()
             Text("Sunset")
                 .bold()
             Image(systemName: "moon.fill")
-                .foregroundColor(Color("DarkBlue"))
-            Text(formatTime(unixTime: viewModel.weather.city.sunset, timeZoneOffset: viewModel.weather.city.timezone))
+                .foregroundColor(Color(hex: "#003087"))
+            Text(Formatters().formatTime(unixTime: viewModel.weather.city.sunset, timeZoneOffset: viewModel.weather.city.timezone))
         }
+        .foregroundColor(.white)
         .font(.body)
         .padding()
-        .background(colorSchemeManager.currentScheme == .light ? Color.white : Color(.systemBackground).opacity(0.2))
-        .foregroundColor(colorSchemeManager.currentScheme == .dark ? .white : .primary)
+        .background(viewModel.backgroundColor.secondary)
         .background(.ultraThinMaterial)
         .cornerRadius(20)
     }
-    
-    func formatTime(unixTime: Double, timeZoneOffset: Double) -> String {
-        let date = Date(timeIntervalSince1970: unixTime)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        formatter.timeZone = TimeZone(secondsFromGMT: Int(timeZoneOffset))
-        return formatter.string(from: date)
-    }
+}
+
+#Preview {
+    SunriseView(viewModel: WeatherViewModel())
+        .environmentObject(ColorSchemeManager())
 }
