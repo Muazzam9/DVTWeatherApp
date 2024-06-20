@@ -13,16 +13,7 @@ struct WeatherView: View {
     
     var body: some View {
         ZStack {
-            viewModel.backgroundColor
-                            .edgesIgnoringSafeArea(.all)
-                        
-                        if let backgroundImage = viewModel.backgroundImage {
-                            backgroundImage
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity , alignment: .top)
-                                .edgesIgnoringSafeArea(.all)
-                        }
+            BackgroundView
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 15) {
                     CurrentWeatherView(viewModel: viewModel)
@@ -63,3 +54,19 @@ struct WeatherView: View {
     }
 }
 
+extension WeatherView {
+    @ViewBuilder
+    private var BackgroundView: some View {
+        viewModel.backgroundColor
+            .edgesIgnoringSafeArea(.all)
+        
+        if let backgroundImage = viewModel.backgroundImage {
+            backgroundImage
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity, maxHeight: .infinity , alignment: .top)
+                .edgesIgnoringSafeArea(.all)
+        }
+        
+    }
+}

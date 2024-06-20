@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DailyForecastView: View {
-    var dailyForecast: WeatherViewModel.DailyForecast
+    var dailyForecast: DailyForecast
     
     @StateObject var viewModel: WeatherViewModel
     @EnvironmentObject var colorSchemeManager: ColorSchemeManager
@@ -16,7 +16,7 @@ struct DailyForecastView: View {
     var body: some View {
         HStack {
             HStack {
-                Text(viewModel.formattedTime(from: dailyForecast.day, timeZoneOffset: viewModel.weather.city.timezone) ?? viewModel.day)
+                Text(Formatters().formattedTime(from: dailyForecast.day, timeZoneOffset: viewModel.weather.city.timezone) ?? viewModel.day)
                 Spacer()
             }
             Spacer()
@@ -31,8 +31,8 @@ struct DailyForecastView: View {
             Spacer()
             HStack {
                 Spacer()
-                Text("\(viewModel.convert(dailyForecast.maxTemp).roundDouble())°")
-                Text("\(viewModel.convert(dailyForecast.minTemp).roundDouble())°")
+                Text("\(Formatters().convert(dailyForecast.maxTemp).roundDouble())°")
+                Text("\(Formatters().convert(dailyForecast.minTemp).roundDouble())°")
                 Spacer()
             }
             .bold()
