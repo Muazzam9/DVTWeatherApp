@@ -34,6 +34,9 @@ class WeatherService {
                 completion(.failure(NSError(domain: "WeatherService", code: 2, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                 return
             }
+            if let str = String(data: data, encoding: .utf8) {
+                print(">>> data: ", str)
+            }
             
             do {
                 let weatherData = try JSONDecoder().decode(ResponseData.self, from: data)

@@ -132,14 +132,15 @@ struct ResponseData: Decodable, Identifiable, RandomAccessCollection, Hashable {
     
     struct RainResponse: Decodable {
         let oneHour: Double
+        let threeHour: Double
         
         enum CodingKeys: String, CodingKey {
             case oneHour = "1h"
+            case threeHour = "3h"
         }
     }
     
     struct SysResponse: Codable {
-        
         let pod: String
     }
     

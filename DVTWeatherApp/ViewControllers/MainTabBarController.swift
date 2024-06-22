@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
         let currentWeatherVC = WeatherViewController(colorSchemeManager: colorSchemeManager)
         currentWeatherVC.tabBarItem = UITabBarItem(title: "Current", image: UIImage(systemName: "cloud.sun"), tag: 0)
 
-        let favoritesVC = WeatherViewController(colorSchemeManager: colorSchemeManager)
+        let favoritesVC = FavouriteLocationViewController(colorSchemeManager: colorSchemeManager)
         favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star"), tag: 1)
 
         viewControllers = [currentWeatherVC, favoritesVC]

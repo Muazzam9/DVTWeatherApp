@@ -1,65 +1,58 @@
+//
+//  SavedLocationViewModel.swift
+//  DVTWeatherApp
+//
+//  Created by Muazzam Aziz on 2024/06/22.
+//
+
 import Foundation
 import CoreLocation
 import Combine
 import SwiftUI
 
-class WeatherViewModel: ObservableObject {
-    
-    
+class SavedLocationViewModel: ObservableObject {
     @Published var location = ""
     @Published var isLoading: Bool = false
     @Published var isRefreshing: Bool = false
     @Published var weather: ResponseData = defaultResponseData
-    
-    // Store the current location
-    @Published var currentLocation: CLLocation?
-        
     @Published var appError: AppError? = nil
+    
+    let savedLocation: CLLocation
     var weatherService = WeatherService()
-    private var locationManager = LocationManager()
     private var cancellables = Set<AnyCancellable>()
     
-    
-    init() {
-            locationManager.$location
-                .compactMap { $0 }
-                .sink { [weak self] location in
-                    self?.currentLocation = location
-                    self?.fetchWeather(isInitialLoad: true) // Initial load
-                }
-                .store(in: &cancellables)
-        }
+    init(savedLocation: CLLocation) {
+        self.savedLocation = savedLocation
+        fetchWeather(isInitialLoad: true)
+    }
     
     func fetchWeather(isInitialLoad: Bool = false) {
-            guard let location = currentLocation else { return }
-            
-            if isInitialLoad {
-                isLoading = true
-            } else {
-                isRefreshing = true
-            }
-            
-            weatherService.fetchWeatherData(for: location) { [weak self] result in
-                DispatchQueue.main.async {
-                    if isInitialLoad {
-                        self?.isLoading = false
-                    } else {
-                        self?.isRefreshing = false
-                    }
-                    
-                    switch result {
-                    case .success(let weatherData):
-                        self?.weather = weatherData
-                    case .failure(let error):
-                        self?.appError = AppError(errorString: error.localizedDescription)
-                    }
+        if isInitialLoad {
+            isLoading = true
+        } else {
+            isRefreshing = true
+        }
+        
+        weatherService.fetchWeatherData(for: savedLocation) { [weak self] result in
+            DispatchQueue.main.async {
+                if isInitialLoad {
+                    self?.isLoading = false
+                } else {
+                    self?.isRefreshing = false
+                }
+                
+                switch result {
+                case .success(let weatherData):
+                    self?.weather = weatherData
+                case .failure(let error):
+                    self?.appError = AppError(errorString: error.localizedDescription)
                 }
             }
         }
+    }
 }
 
-extension WeatherViewModel {
-    
+extension SavedLocationViewModel {
     var backgroundColor: Color {
         switch weather.list.first?.weather.first?.main ?? "" {
         case "Rain":
@@ -116,9 +109,11 @@ extension WeatherViewModel {
     var temperature: String {
         return "\(Formatters.numberFormatter.string(for: Formatters().convert(weather.list[0].main.temp)) ?? "0")°"
     }
+    
     var minTemperature: String {
         return "\(Formatters.numberFormatter.string(for: Formatters().convert(weather.list[0].main.tempMin)) ?? "0")°"
     }
+    
     var maxTemperature: String {
         return "\(Formatters.numberFormatter.string(for: Formatters().convert(weather.list[0].main.tempMax)) ?? "0")°"
     }
@@ -154,7 +149,6 @@ extension WeatherViewModel {
     var wind: String {
         return "\(Formatters.numberFormatter.string(for: weather.list[0].wind.speed) ?? "0")m/s"
     }
-    
     
     public var dailyForecasts: [DailyForecast] {
         let groupedData = Dictionary(grouping: weather.list) { (element) -> Substring in
